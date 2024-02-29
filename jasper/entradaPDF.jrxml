@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.21.1.final using JasperReports Library version 6.21.0-4f56c4f36cd19e17675219a9ac4692d5f0f13b06  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Blank_A4_1" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="59f59912-e6ff-4c09-9473-761f6fa26a3c">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="One Empty Record"/>
+	<parameter name="gate" class="java.lang.Integer"/>
+	<parameter name="row" class="java.lang.Integer"/>
+	<parameter name="seat" class="java.lang.Integer"/>
+	<parameter name="ticketType" class="java.lang.String"/>
+	<parameter name="match" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="408" splitType="Stretch">
+			<image>
+				<reportElement x="-22" y="-20" width="599" height="390" uuid="c0565c36-bbb8-4100-9a4f-645bdeb97125"/>
+				<imageExpression><![CDATA["img/entrada.png"]]></imageExpression>
+			</image>
+			<textField>
+				<reportElement x="160" y="144" width="30" height="30" uuid="44cab621-4570-4e81-973c-a3b1f0328c5b"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="16"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{gate}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="270" y="144" width="59" height="30" uuid="0c2d8997-f6c2-4360-8ec4-beaad5bde7db"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="16"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{row}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="430" y="144" width="59" height="30" uuid="106aa1c9-dad9-4fb8-84b0-b06f1c17f559"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="16"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{seat}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="170" y="110" width="320" height="30" uuid="15b4814c-3402-4b48-992d-553633256068"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="16"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{ticketType}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="60" y="144" width="90" height="30" uuid="e4bd2b78-fb68-4dd9-add0-f18fbf569d15"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA["PUERTA/GATE:"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="200" y="144" width="62" height="30" uuid="0d466c66-1f1b-4d67-b65a-1eee913c4045"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA["FILA/ROW: "]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="330" y="144" width="90" height="30" uuid="5f54abd7-9ea7-4112-bb72-34369b038b40"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA["ASIENTO/SEAT:"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="50" y="70" width="520" height="30" uuid="349469ef-489b-48d9-87b3-afd281716d85"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="16"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{match}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="35" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="260" splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="290" splitType="Stretch"/>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>
