@@ -9,7 +9,7 @@ import javax.swing.SwingConstants;
 import com.itextpdf.text.pdf.PdfStructTreeController.returnType;
 
 import Model.Ticket;
-import Model.TicketType;
+
 
 import javax.swing.ButtonGroup;
 import javax.swing.ImageIcon;
@@ -30,6 +30,16 @@ import java.awt.Image;
 import javax.swing.JPanel;
 
 public class Cliente {
+
+	/**
+	 * La clase Cliente proporciona una interfaz gráfica de usuario para que los
+	 * clientes reserven entradas para eventos deportivos. Los clientes pueden
+	 * seleccionar el tipo y la cantidad de entradas deseadas, y luego enviar una
+	 * solicitud al servidor para verificar la disponibilidad. Si hay suficientes
+	 * entradas disponibles, la aplicación pasa a una segunda vista donde los
+	 * clientes pueden completar su compra. Si no hay suficientes entradas
+	 * disponibles, se muestra un mensaje de advertencia al usuario.
+	 */
 
 	private static ImageIcon icon1 = new ImageIcon("././img/palmas.png");
 	private static Image resizedImage1 = icon1.getImage().getScaledInstance(90, 160, Image.SCALE_SMOOTH);
@@ -74,6 +84,14 @@ public class Cliente {
 		tickets.add(tipo3);
 	}
 
+	/**
+	 * Constructor de la clase Cliente. Inicializa la interfaz gráfica de usuario y
+	 * configura los elementos de la ventana.
+	 * 
+	 * @throws UnknownHostException Si no se puede resolver el nombre del host.
+	 * @throws IOException          Si ocurre un error de entrada o salida durante
+	 *                              la comunicación con el servidor.
+	 */
 	public Cliente() throws UnknownHostException, IOException {
 		initialize();
 
@@ -107,13 +125,6 @@ public class Cliente {
 
 		view1.add(quantityMas);
 		tipo1.setEnabled(false);
-
-		/*
-		 * JLabel img = new JLabel(resizedIcon1); im1.setBounds(427, 10, 178, 257);
-		 * frame.getContentPane().add(im1);
-		 */
-
-		///////////////////////////////
 
 		tipo1.setBounds(44, 27, 160, 195);
 		tipo1.setName("tipo1");
@@ -190,6 +201,14 @@ public class Cliente {
 
 	}
 
+	/**
+	 * Maneja el evento de selección de un tipo de ticket.
+	 * 
+	 * @param selectedBtn El botón de ticket seleccionado por el usuario.
+	 * @throws UnknownHostException Si no se puede resolver el nombre del host.
+	 * @throws IOException          Si ocurre un error de entrada o salida durante
+	 *                              la comunicación con el servidor.
+	 */
 	private void selectedTicket(JButton selectedBtn) throws UnknownHostException, IOException {
 		cliente = new Socket("localhost", 1234);
 		// recoger los datos del boton y la cantidad
@@ -202,7 +221,7 @@ public class Cliente {
 			match = "ATLETICO MADRID - LAS PALMAS FC";
 		} else if (tipo == "tipo2") {
 			match = "ATLETICO MADRID - INTER DE MILAN";
-		} else if(tipo == "tipo3"){
+		} else if (tipo == "tipo3") {
 			match = "ATLETICO MADRID - FC BARCELONA";
 		}
 
@@ -226,6 +245,13 @@ public class Cliente {
 		}
 	}
 
+	/**
+	 * Verifica si hay suficientes tickets disponibles en el servidor.
+	 * 
+	 * @return true si hay suficientes tickets disponibles, false de lo contrario.
+	 * @throws IOException Si ocurre un error de entrada o salida durante la
+	 *                     comunicación con el servidor.
+	 */
 	private boolean hayTickets() throws IOException {
 
 		DataInputStream entradaCliente = new DataInputStream(cliente.getInputStream());
@@ -234,6 +260,13 @@ public class Cliente {
 
 	}
 
+	/**
+	 * Envía una solicitud al servidor con la información del ticket seleccionado
+	 * por el cliente.
+	 * 
+	 * @param ticket El ticket seleccionado por el cliente.
+	 * @throws IOException Si ocurre un error de entrada o salida durante la comunicación con el servidor.
+	 */
 	private void solicitudServer(Ticket ticket) throws IOException {
 
 		System.out.println(ticket.toString());

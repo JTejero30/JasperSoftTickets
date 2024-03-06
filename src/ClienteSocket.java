@@ -89,7 +89,14 @@ public class ClienteSocket {
 		});
 		timerThread.start();
 	}
-
+	 /**
+     * Constructor de la clase ClienteSocket.
+     * Inicializa la interfaz gráfica de usuario y configura los elementos de la ventana.
+     * 
+     * @param botonPulsado El botón utilizado para confirmar la compra.
+     * @param ticket El ticket que se está reservando o comprando.
+     * @param cliente El socket del cliente para la comunicación con el servidor.
+     */
 	public ClienteSocket(JButton botonPulsado, Ticket ticket, Socket cliente) {
 		initialize();
 		buttonRecibed = botonPulsado;
@@ -184,6 +191,7 @@ public class ClienteSocket {
 		frame.getContentPane().add(button);
 
 		button.addActionListener(new ActionListener() {
+  
 			public void actionPerformed(ActionEvent e) {
 				int confirm = JOptionPane.showConfirmDialog(frame,
 						"Desea confirmar la compra de " + cantidadTotal + " tickets de " + ticketReservado.getTipo());
@@ -202,7 +210,13 @@ public class ClienteSocket {
 		});
 
 	}
-
+	/**
+     * Maneja el evento de devolución de tickets.
+     * Se ejecuta cuando el temporizador alcanza cero o cuando el usuario cierra la ventana antes de completar la compra.
+     * Devuelve los tickets reservados al servidor.
+     * 
+     * @throws IOException Si hay un error de entrada o salida durante la comunicación con el servidor.
+     */
 	private static void returnTickets() throws IOException {
 		// TODO invocar el metodo cuando se sale de la pantalla
 		// abrimos un canal de salida, le mandamos un objeto ticket cambiando el
@@ -214,7 +228,13 @@ public class ClienteSocket {
 		devolucion.flush();
 		cliente.close();
 	}
-
+	/**
+     * Maneja el evento de compra de tickets.
+     * Se ejecuta cuando el usuario hace clic en el botón "FINALIZAR COMPRA".
+     * Muestra un cuadro de diálogo de confirmación y, si el usuario confirma, completa la compra de tickets.
+     * 
+     * @param e El evento de acción generado por el botón "FINALIZAR COMPRA".
+     */
 	protected void comprarTickets() throws UnknownHostException, IOException {
 		ticketReservado.setSeat(Integer.parseInt( seatCombo.getSelectedItem().toString()));
 		ticketReservado.setRow(Integer.parseInt( rowCombo.getSelectedItem().toString()));

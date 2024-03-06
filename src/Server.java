@@ -12,23 +12,18 @@ import java.util.Map;
 import javax.swing.JFrame;
 
 import Model.Ticket;
-import Model.TicketType;
 import PDFGenerator.DataSource;
-import net.sf.jasperreports.engine.JREmptyDataSource;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperCompileManager;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperReport;
 import net.sf.jasperreports.view.JasperViewer;
-
-import javax.swing.JList;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.Box;
 import javax.swing.JLabel;
 import java.awt.Font;
-import java.awt.Frame;
 import java.awt.Component;
 import javax.swing.SwingConstants;
 import javax.swing.JButton;
@@ -36,6 +31,11 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
 public class Server {
+	/**
+	 * Esta clase representa la aplicación del servidor para la gestión de tickets.
+	 * Maneja las solicitudes de los clientes para comprar, devolver y generar informes en PDF.
+	 * @author javit
+	 */
 	private JTable table;
 	private DefaultTableModel tableModel;
 	private static Box client_name = Box.createVerticalBox();
@@ -96,8 +96,8 @@ public class Server {
 	}
 
 	/**
-	 * Create the application.
-	 */
+     * Constructor de la clase Server.
+     */
 	public Server() {
 		initialize();
 		new Thread(() -> {
@@ -113,7 +113,11 @@ public class Server {
 		}).start();
 
 	}
-
+	/**
+	 * Inicia el servidor y espera conexiones de clientes.
+	 * @throws IOException Si se produce un error al abrir el socket.
+	 * @throws ClassNotFoundException ClassNotFoundException Si no se encuentra la clase del objeto
+	 */
 	private static void serverOn() throws IOException, ClassNotFoundException {
 		// duda esto va aqui? no se esta iniciando un servidor nuevo?
 		ServerSocket server = new ServerSocket(1234);
@@ -128,15 +132,18 @@ public class Server {
 		}
 
 	}
-
+	/**
+	 * Recoge la solicitud del cliente y lo desvia a un metodo u otro dependiendo de la accioón del Ticket
+	 * @param cliente El socket que representa la conexión del cliente.
+	 * @throws IOException IOException Si se produce un error al enviar o recibir datos.
+	 * @throws ClassNotFoundException ClassNotFoundException Si no se encuentra la clase del objeto serializado.
+	 */
 	private static void solicitudCliente(Socket cliente) throws IOException, ClassNotFoundException {
 		// creamos la entrada especiaal para objetos que nos llega del cliente
 		ObjectInputStream mensajeDelCliente = new ObjectInputStream(cliente.getInputStream());
 		// aqui recogemos el objeto ticket y su cantidad
 		Ticket solicitudClient = new Ticket();
 		solicitudClient = (Ticket) mensajeDelCliente.readObject();
-		// TODO nunca entra aqui, el error esta en returnTickets() de ClientSocket. No
-		// manda el mensaje de devolucion porque nunca vuelve a imprimir el ticket
 		System.out.println(solicitudClient.toString());
 
 		char action = solicitudClient.getAction();
@@ -153,8 +160,13 @@ public class Server {
 			break;
 		}
 	}
-
-
+	/**
+	 *Maneja la solicitud de compra de un cliente.
+	 * @param mensajeDelCliente El flujo de entrada del cliente.
+	 * @param cliente El socket del cliente.
+	 * @param solicitudClient La solicitud de compra de tickets.
+	 * @throws IOException Si se produce un error al enviar datos.
+	 */
 	private static void solicitudCompra(ObjectInputStream mensajeDelCliente, Socket cliente, Ticket solicitudClient)
 			throws IOException {
 		// creamos la salida para contestar al cliente cliente
@@ -177,7 +189,11 @@ public class Server {
 		}
 
 	}
-
+	/**
+	 * Comprueba si hay suficientes tickets disponibles para la compra.
+	 * @param compra La solicitud de compra de tickets.
+	 * @return True si hay suficientes tickets disponibles, false en caso contrario.
+	 */
 	private static boolean checkTickets(Ticket compra) {
 		
 		int left = entradas.get(compra.getTipo());
@@ -191,7 +207,12 @@ public class Server {
 			return false;
 		}
 	}
-
+	/**
+	 * Realiza la compra de tickets para un cliente.
+	 * @param mensajeDelCliente El flujo de entrada para recibir mensajes del cliente.
+	 * @param cliente El socket del cliente.
+	 * @param solicitudClient El objeto Ticket que contiene la información de la solicitud de compra.
+	 */
 	private static void comprar(ObjectInputStream mensajeDelCliente, Socket cliente, Ticket solicitudClient) {
 
 		JLabel name = new JLabel(solicitudClient.getNombreCliente());
@@ -230,7 +251,11 @@ public class Server {
 		
 		entradasPDF.add(solicitudClient);
 	}
-
+	/**
+	 * Actualiza el total y refresca la interfaz de facturación y la cantidad total de tickets vendidos de un tipo específico.
+	 * @param tipo El tipo de tickets vendidos.
+	 * @param parseDouble El valor del total a agregar.
+	 */
 	private static void actualizarTotal(String tipo, double parseDouble) {
 		Double totalFacturacion=Double.parseDouble(totaltotal.getText());
 		switch (tipo) {
@@ -258,7 +283,12 @@ public class Server {
 		totaltotal.setText(String.valueOf(totalFacturacion));
 		
 	}
-
+	/**
+	 * Procesa la devolución de tickets y actualiza la cantidad de tickets disponibles en el inventario.
+	 * @param mensajeDelCliente El flujo de entrada del mensaje del cliente.
+	 * @param cliente El socket del cliente.
+	 * @param solicitudClient La solicitud de devolución de tickets.
+	 */
 	private static void devolucion(ObjectInputStream mensajeDelCliente, Socket cliente, Ticket solicitudClient) {
 		String tipoString = solicitudClient.getTipo();
 		int cantidadDevolver = solicitudClient.getCantidad();
@@ -417,6 +447,9 @@ public class Server {
 		frame.getContentPane().add(btnNewButton);
 
 	}
+	/**
+	 * Genera un resumen en formato PDF de las transacciones de tickets.
+	 */
 
 	protected void resumenPDF() {
 		

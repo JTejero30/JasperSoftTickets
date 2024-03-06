@@ -3,6 +3,10 @@ package Model;
 import java.io.Serializable;
 
 public class Ticket implements Serializable {
+	/**
+	 * La clase Ticket representa un ticket para un evento, como un partido de fútbol.
+	 * Implementa la interfaz Serializable para permitir su serialización y transmisión a través de una red.
+	 */
 	String tipo;
 	int cantidad;
 	char action;
@@ -13,12 +17,20 @@ public class Ticket implements Serializable {
 	int seat;
 	double precio;
 	String match;
-	
-
-	
-
-
-
+	   /**
+     * Constructor de la clase Ticket.
+     * 
+     * @param tipo El tipo de ticket.
+     * @param cantidad La cantidad de tickets.
+     * @param action La acción asociada al ticket (reservar, comprar, devolver, etc.).
+     * @param nombreCliente El nombre del cliente asociado al ticket.
+     * @param emailCliente El correo electrónico del cliente asociado al ticket.
+     * @param gate El número de puerta del asiento del ticket.
+     * @param row El número de fila del asiento del ticket.
+     * @param seat El número de asiento del ticket.
+     * @param precio El precio del ticket.
+     * @param match La descripción del partido asociado al ticket.
+     */
 	public Ticket(String tipo, int cantidad, char action, String nombreCliente, String emailCliente, int gate, int row,
 			int seat, double precio, String match) {
 		super();
@@ -81,13 +93,6 @@ public class Ticket implements Serializable {
 	public void setSeat(int seat) {
 		this.seat = seat;
 	}
-
-
-
-
-	
-
-
 
 	public Ticket(String tipo, int cantidad, char action, String match) {
 		super();
@@ -188,14 +193,7 @@ public class Ticket implements Serializable {
 		
 		}
 	}
-
-
-
 	public Ticket() {
 		super();
 	}
-	
-	
-	
-	
 }

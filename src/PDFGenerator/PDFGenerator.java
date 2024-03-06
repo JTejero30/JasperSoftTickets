@@ -15,7 +15,11 @@ import net.sf.jasperreports.view.JasperViewer;
 public class PDFGenerator {
 	
 	private static Ticket myticket;
-	
+	/**
+	 * Método principal que se encarga de generar el archivo PDF con los datos del ticket.
+	 * 
+	 * @param args Los argumentos de línea de comandos (no se utilizan en este caso).
+	 */
 	public static void main(String[] args) {
 		Map<String, Object> mapeoData= new HashMap<String, Object>();
 		mapeoData.put("gate", myticket.getGate());
@@ -33,7 +37,11 @@ public class PDFGenerator {
 			e1.printStackTrace();
 		}
 	}
-
+	/**
+	 * Constructor de la clase PDFGenerator.
+	 * 
+	 * @param myticket El ticket del que se generarán los datos del archivo PDF.
+	 */
 	public PDFGenerator(Ticket myticket) {
 		super();
 		this.myticket = myticket;
